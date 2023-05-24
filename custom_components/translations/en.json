@@ -1,0 +1,15 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "New location",
+        "description": "Add new location",
+        "data": {
+          "municipio": "Municipality location",
+          "IDMunicipio": "Municipality ID location",
+          "municipio_gas_type": "Combustible or gas type"
+        }
+      }
+    }
+  }
+}

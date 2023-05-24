@@ -1,0 +1,15 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Nova localitat",
+        "description": "Afegeix una localitat",
+        "data": {
+          "municipio": "Localitat",
+          "IDMunicipio": "ID Localitat",
+          "municipio_gas_type": "Tipus de combustible"
+        }
+      }
+    }
+  }
+}

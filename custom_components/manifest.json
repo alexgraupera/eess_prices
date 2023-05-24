@@ -1,0 +1,14 @@
+{
+    "domain": "eess_prices",
+    "name": "Cheaper fuel prices by location",
+    "codeowners": [],
+    "config_flow": true,
+    "dependencies": [],
+    "documentation": "https://www.example.com",
+    "homekit": {},
+    "iot_class": "cloud_polling",
+    "requirements": [],
+    "ssdp": [],
+    "version": "0.1.0",
+    "zeroconf": []
+  }

@@ -1,0 +1,14 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Añade un nuevo municipio",
+        "data": {
+          "municipio": "[%key:common::config_flow::data::municipio%]",
+          "IDMunicipio": "[%key:common::config_flow::data::IDMunicipio%]",
+          "municipio_gas_type": "[%key:common::config_flow::data::municipio_gas_type%]"
+        }
+      }
+    }
+  }
+}
