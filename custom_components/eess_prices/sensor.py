@@ -81,16 +81,6 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
         self._attr_name = f"{self._municipio} {self._municipio_fuel_type}"
         self.entity_description = description
 
-    @property
-    def state(self):
-        """Return the state of the sensor."""
-        return self._state
-
-    @property
-    def extra_state_attributes(self) -> Mapping[str, Any] | None:
-        """Return the extra state attributes"""
-        return self._attributes
-
     async def async_added_to_hass(self) -> None:
         """Handle entity which will be added."""
         await super().async_added_to_hass()
@@ -103,8 +93,8 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        self._state = self.coordinator.data["state"]
-        self._attributes = self.coordinator.data["attributes"]
+        self._attr_native_value = self.coordinator.data["state"]
+        self._attr_extra_state_attributes = self.coordinator.data["attributes"]
         self.async_write_ha_state()
         _LOGGER.debug("Updated eess_prices sensor %s (%s) and %s fuel type",
                       self._municipio,
