@@ -24,13 +24,12 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import EESSpricesCoordinator
-
 from .const import (
-    DOMAIN,
+    CONF_GAS_TYPE,
     CONF_MUNICIPIO,
-    CONF_MUNICIPIO_ID,
     CONF_MUNICIPIO_GAS_TYPE,
-    CONF_GAS_TYPE
+    CONF_MUNICIPIO_ID,
+    DOMAIN,
 )
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(

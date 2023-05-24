@@ -6,7 +6,15 @@ import voluptuous as vol
 from homeassistant import config_entries, core
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import CONF_MUNICIPIOS_URL_LIST, DOMAIN, CONF_MUNICIPIO, CONF_MUNICIPIO_ID, CONF_MUNICIPIO_GAS_TYPE, CONF_GAS_TYPE, CONF_MUNICIPIO_GAS_TYPE_DESCRIPTION
+from .const import (
+    CONF_GAS_TYPE,
+    CONF_MUNICIPIO,
+    CONF_MUNICIPIO_GAS_TYPE,
+    CONF_MUNICIPIO_GAS_TYPE_DESCRIPTION,
+    CONF_MUNICIPIO_ID,
+    CONF_MUNICIPIOS_URL_LIST,
+    DOMAIN,
+)
 
 DATA_SCHEMA = vol.Schema(
     { 
@@ -19,7 +27,6 @@ DATA_SCHEMA = vol.Schema(
 class EESSPricesConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
-
     municipalities = {}
 
     async def async_step_user(self, user_input):
