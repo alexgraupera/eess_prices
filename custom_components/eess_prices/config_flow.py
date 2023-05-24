@@ -7,10 +7,10 @@ from homeassistant import config_entries, core
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
-    CONF_GAS_TYPE,
+    CONF_FUEL_TYPE,
     CONF_MUNICIPIO,
-    CONF_MUNICIPIO_GAS_TYPE,
-    CONF_MUNICIPIO_GAS_TYPE_DESCRIPTION,
+    CONF_MUNICIPIO_FUEL_TYPE,
+    CONF_MUNICIPIO_FUEL_TYPE_DESCRIPTION,
     CONF_MUNICIPIO_ID,
     CONF_MUNICIPIOS_URL_LIST,
     DOMAIN,
@@ -20,7 +20,7 @@ DATA_SCHEMA = vol.Schema(
     { 
         vol.Required(CONF_MUNICIPIO_ID, default=1): vol.All(vol.Coerce(int), vol.Range(min=1)),
         vol.Required(CONF_MUNICIPIO, default=""): vol.All(str, vol.Length(min=1)),
-        vol.Required(CONF_MUNICIPIO_GAS_TYPE): vol.In(CONF_GAS_TYPE)
+        vol.Required(CONF_MUNICIPIO_FUEL_TYPE): vol.In(CONF_FUEL_TYPE)
     }
 )
 
@@ -33,15 +33,15 @@ class EESSPricesConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             municipio_id = user_input.get(CONF_MUNICIPIO_ID)
             municipio = self.municipalities[municipio_id]
-            municipio_gas_type = user_input.get(CONF_MUNICIPIO_GAS_TYPE)
-            municipio_gas_type_description = CONF_GAS_TYPE[municipio_gas_type]
-            sensor_title = f"{municipio} {municipio_gas_type_description}"
-            unique_id_key = f"{user_input.get(CONF_MUNICIPIO_ID)}_{user_input.get(CONF_MUNICIPIO_GAS_TYPE)}"
+            municipio_fuel_type = user_input.get(CONF_MUNICIPIO_FUEL_TYPE)
+            municipio_fuel_type_description = CONF_FUEL_TYPE[municipio_fuel_type]
+            sensor_title = f"{municipio} {municipio_fuel_type_description}"
+            unique_id_key = f"{user_input.get(CONF_MUNICIPIO_ID)}_{user_input.get(CONF_MUNICIPIO_FUEL_TYPE)}"
 
             await self.async_set_unique_id(unique_id_key)
             self._abort_if_unique_id_configured()
             user_input[CONF_MUNICIPIO] = municipio
-            user_input[CONF_MUNICIPIO_GAS_TYPE_DESCRIPTION] = municipio_gas_type_description
+            user_input[CONF_MUNICIPIO_FUEL_TYPE_DESCRIPTION] = municipio_fuel_type_description
 
             return self.async_create_entry(title=sensor_title, data=user_input)
 
@@ -50,7 +50,7 @@ class EESSPricesConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(step_id="user", data_schema=vol.Schema(
                     {
                         vol.Required(CONF_MUNICIPIO_ID): vol.In(self.municipalities),
-                        vol.Required(CONF_MUNICIPIO_GAS_TYPE): vol.In(CONF_GAS_TYPE)
+                        vol.Required(CONF_MUNICIPIO_FUEL_TYPE): vol.In(CONF_FUEL_TYPE)
                     }
                 ))
 

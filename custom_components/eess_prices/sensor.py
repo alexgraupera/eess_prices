@@ -24,9 +24,9 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import EESSpricesCoordinator
 from .const import (
-    CONF_GAS_TYPE,
+    CONF_FUEL_TYPE,
     CONF_MUNICIPIO,
-    CONF_MUNICIPIO_GAS_TYPE,
+    CONF_MUNICIPIO_FUEL_TYPE,
     CONF_MUNICIPIO_ID,
     DOMAIN,
 )
@@ -35,7 +35,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_MUNICIPIO): cv.string,
         vol.Required(CONF_MUNICIPIO_ID): vol.All(vol.Coerce(int)),
-        vol.Required(CONF_MUNICIPIO_GAS_TYPE): vol.In(CONF_GAS_TYPE)
+        vol.Required(CONF_MUNICIPIO_FUEL_TYPE): vol.In(CONF_FUEL_TYPE)
     }
 )
 
@@ -77,8 +77,8 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
         super().__init__(coordinator)
         self._attr_unique_id = config.unique_id
         self._municipio = self.coordinator.config_entry.data[CONF_MUNICIPIO]
-        self._municipio_gas_type = CONF_GAS_TYPE[self.coordinator.config_entry.data[CONF_MUNICIPIO_GAS_TYPE]]
-        self._attr_name = f"{self._municipio} {self._municipio_gas_type}"
+        self._municipio_fuel_type = CONF_FUEL_TYPE[self.coordinator.config_entry.data[CONF_MUNICIPIO_FUEL_TYPE]]
+        self._attr_name = f"{self._municipio} {self._municipio_fuel_type}"
         self.entity_description = description
 
     @property
@@ -98,7 +98,7 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
         _LOGGER.debug("Setup for eess_prices sensor %s (%s) and %s fuel type",
                       self._municipio,
                       self.unique_id,
-                      self._municipio_gas_type)
+                      self._municipio_fuel_type)
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -109,4 +109,4 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
         _LOGGER.debug("Updated eess_prices sensor %s (%s) and %s fuel type",
                       self._municipio,
                       self.unique_id,
-                      self._municipio_gas_type)
+                      self._municipio_fuel_type)

@@ -12,10 +12,10 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from .const import (
     CONF_MUNICIPIO,
     CONF_MUNICIPIO_FILTER_URL,
-    CONF_MUNICIPIO_GAS_TYPE,
+    CONF_MUNICIPIO_FUEL_TYPE,
     CONF_MUNICIPIO_ID,
     DOMAIN,
-    KEY_GAS_TYPE,
+    KEY_FUEL_TYPE,
     KEY_LISTA_EESS_PRECIO,
     KEY_STATION_ADDRESS,
     KEY_STATION_LATITUDE,
@@ -67,7 +67,7 @@ class EESSpricesCoordinator(DataUpdateCoordinator):
         self._session = async_get_clientsession(hass)
         self._municipio = entry.data[CONF_MUNICIPIO]
         self._municipio_id = entry.data[CONF_MUNICIPIO_ID]
-        self._municipio_gas_type = entry.data[CONF_MUNICIPIO_GAS_TYPE]
+        self._municipio_fuel_type = entry.data[CONF_MUNICIPIO_FUEL_TYPE]
         
     async def _async_update_data(self) -> dict:
         url = f"{CONF_MUNICIPIO_FILTER_URL}{self._municipio_id}"
@@ -75,9 +75,9 @@ class EESSpricesCoordinator(DataUpdateCoordinator):
             data = await response.json()
         service_stations = {}
         for service_station in data[KEY_LISTA_EESS_PRECIO]:
-            gas_type = KEY_GAS_TYPE[self._municipio_gas_type]
-            if gas_type in service_station:
-                price = service_station[gas_type]
+            fuel_type = KEY_FUEL_TYPE[self._municipio_fuel_type]
+            if fuel_type in service_station:
+                price = service_station[fuel_type]
                 if price:
                     name = service_station[KEY_STATION_NAME]
                     coordinates = (float(service_station[KEY_STATION_LATITUDE].replace(',', '.')), float(service_station[KEY_STATION_LONGITUDE].replace(',', '.')))
