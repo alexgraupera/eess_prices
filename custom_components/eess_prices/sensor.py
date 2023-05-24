@@ -1,4 +1,4 @@
-"""GitHub sensor platform."""
+"""eess_prices sensor platform."""
 from __future__ import annotations
 
 from collections.abc import Mapping
@@ -17,7 +17,6 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CURRENCY_EURO, UnitOfVolume
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -57,6 +56,7 @@ async def async_setup_entry(
     config: ConfigEntry, 
     async_add_entities: AddEntitiesCallback
 ) -> None:
+    """Set up the eess_prices sensor from config entry."""
     coordinator = hass.data[DOMAIN][config.entry_id]
     sensor = EESSPriceSensor(
         coordinator,
@@ -65,15 +65,20 @@ async def async_setup_entry(
     async_add_entities([sensor])
 
 class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
+    """Class to hold the cheapest price of fuel given a location as a sensor."""
+
     def __init__(
         self,
         coordinator: EESSpricesCoordinator,
         description: SensorEntityDescription,
         config: ConfigEntry,
     ) -> None:
+        """Initialize eess_prices sensor."""
         super().__init__(coordinator)
         self._attr_unique_id = config.unique_id
-        self._attr_name = f"{config.data[CONF_MUNICIPIO]} {CONF_GAS_TYPE[config.data[CONF_MUNICIPIO_GAS_TYPE]]}"
+        self._municipio = self.coordinator.config_entry.data[CONF_MUNICIPIO]
+        self._municipio_gas_type = CONF_GAS_TYPE[self.coordinator.config_entry.data[CONF_MUNICIPIO_GAS_TYPE]]
+        self._attr_name = f"{self._municipio} {self._municipio_gas_type}"
         self.entity_description = description
 
     @property
@@ -83,12 +88,17 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
 
     @property
     def extra_state_attributes(self) -> Mapping[str, Any] | None:
+        """Return the extra state attributes"""
         return self._attributes
 
     async def async_added_to_hass(self) -> None:
         """Handle entity which will be added."""
         await super().async_added_to_hass()
         self._handle_coordinator_update()
+        _LOGGER.debug("Setup for eess_prices sensor %s (%s) and %s fuel type",
+                      self._municipio,
+                      self.unique_id,
+                      self._municipio_gas_type)
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -96,3 +106,7 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
         self._state = self.coordinator.data["state"]
         self._attributes = self.coordinator.data["attributes"]
         self.async_write_ha_state()
+        _LOGGER.debug("Updated eess_prices sensor %s (%s) and %s fuel type",
+                      self._municipio,
+                      self.unique_id,
+                      self._municipio_gas_type)
