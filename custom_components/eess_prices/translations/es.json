@@ -1,0 +1,21 @@
+{
+    "config": {
+      "abort": {
+        "already_configured": "Esta localidad y tipo de combustible ya ha sido configurada"
+      },
+      "error": {
+        "already_configured": "Esta localidad y tipo de combustible ya ha sido configurada"
+      },
+      "step": {
+        "user": {
+          "title": "Nueva localidad",
+          "description": "Añade una localidad",
+          "data": {
+            "municipio": "Localidad",
+            "IDMunicipio": "ID Localidad",
+            "municipio_gas_type": "Tipo de combustible"
+          }
+        }
+      }
+    }
+  }

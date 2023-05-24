@@ -1,5 +1,11 @@
 {
   "config": {
+    "abort": {
+      "already_configured": "This location and fuel type is already configured"
+    },
+    "error": {
+      "already_configured": "This location and fuel type is already configured"
+    },
     "step": {
       "user": {
         "title": "New location",

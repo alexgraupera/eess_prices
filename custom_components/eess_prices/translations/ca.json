@@ -1,5 +1,11 @@
 {
   "config": {
+    "abort": {
+      "already_configured": "Aquesta localitat i tipus de combustible ja ha estat configurada"
+    },
+    "error": {
+      "already_configured": "Aquesta localitat i tipus de combustible ja ha estat configurada"
+    },
     "step": {
       "user": {
         "title": "Nova localitat",
