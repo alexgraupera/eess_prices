@@ -3,7 +3,7 @@
 DOMAIN = "eess_prices"
 
 CONF_MUNICIPIO = "municipio"
-CONF_MUNICIPIO_ID = "IDmunicipio"
+CONF_MUNICIPIO_ID = "municipio_id"
 CONF_MUNICIPIO_FUEL_TYPE = "municipio_fuel_type"
 CONF_MUNICIPIO_FUEL_TYPE_DESCRIPTION = "municipio_fuel_type_description"
 CONF_MUNICIPIOS_URL_LIST = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/Municipios/"

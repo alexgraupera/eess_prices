@@ -1,8 +1,6 @@
 """eess_prices sensor platform."""
 from __future__ import annotations
 
-from collections.abc import Mapping
-from datetime import datetime, timedelta
 import logging
 from typing import Any
 
@@ -18,7 +16,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CURRENCY_EURO, UnitOfVolume
 from homeassistant.core import HomeAssistant, callback
 import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
