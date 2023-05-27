@@ -57,8 +57,7 @@ async def async_setup_entry(
     coordinator = hass.data[DOMAIN][config.entry_id]
     sensor = EESSPriceSensor(
         coordinator,
-        SENSOR_TYPES[0],
-        config)
+        SENSOR_TYPES[0])
     async_add_entities([sensor])
 
 class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
@@ -67,12 +66,11 @@ class EESSPriceSensor(CoordinatorEntity[EESSpricesCoordinator], SensorEntity):
     def __init__(
         self,
         coordinator: EESSpricesCoordinator,
-        description: SensorEntityDescription,
-        config: ConfigEntry,
+        description: SensorEntityDescription
     ) -> None:
         """Initialize eess_prices sensor."""
         super().__init__(coordinator)
-        self._attr_unique_id = config.unique_id
+        self._attr_unique_id = self.coordinator.config_entry.unique_id
         self._municipio = self.coordinator.config_entry.data[CONF_MUNICIPIO]
         self._municipio_fuel_type = CONF_FUEL_TYPE[self.coordinator.config_entry.data[CONF_MUNICIPIO_FUEL_TYPE]]
         self._attr_name = f"{self._municipio} {self._municipio_fuel_type}"

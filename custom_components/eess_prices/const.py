@@ -13,7 +13,7 @@ CONF_GAS_98_ES = "GAS_98_ES"
 CONF_GAS_DIESEL_A = "GAS_DIESEL_A"
 CONF_FUEL_TYPE = {
     CONF_GAS_95_ES: "Gasolina 95 ES",
-    CONF_GAS_98_ES: "Gasoma 98 ES",
+    CONF_GAS_98_ES: "Gasolina 98 ES",
     CONF_GAS_DIESEL_A: "Gasoleo A"
 }
 
